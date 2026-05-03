@@ -20,10 +20,8 @@
 #define AP33772S_ADDRESS     (0x52)
 
 // ── Buffer / array sizes ──────────────────────────────────────────────────────
-#define READ_BUFF_LEN        (128)
-#define WRITE_BUFF_LEN       (6)
 #define MAX_PDO_ENTRIES      (13)
-#define SRCPDO_BYTES         (26)   // 13 PDOs × 2 bytes each
+#define SRCPDO_BYTES         (MAX_PDO_ENTRIES * 2)   // 13 PDOs × 2 bytes each
 
 // ── Register addresses (Table 19, DS46176 Rev.9-2) ───────────────────────────
 #define CMD_STATUS           (0x01)  // RC — clears on read
@@ -112,7 +110,16 @@
 #define UVP_75PCT            (2)
 #define UVP_70PCT            (3)
 
-// ── Keep-alive interval for PPS/AVS (ms) — must be < 10 000 ms (USB-PD spec) ─
+// ── Cross-platform ISR attribute ──────────────────────────────────────────────
+// Use AP33772S_ISR_ATTR on interrupt service routines for portability.
+// On ESP32/ESP8266 this places the function in IRAM; on other platforms it is a no-op.
+#if defined(ESP32) || defined(ESP8266)
+  #define AP33772S_ISR_ATTR IRAM_ATTR
+#else
+  #define AP33772S_ISR_ATTR
+#endif
+
+
 #define AVS_KEEPALIVE_MS     (500u)
 
 // ── PDO type constants ────────────────────────────────────────────────────────

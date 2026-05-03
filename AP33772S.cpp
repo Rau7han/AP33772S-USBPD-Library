@@ -528,7 +528,8 @@ uint8_t AP33772S::clearInterrupt() {
 
 void AP33772S::attachInterruptCallback(void (*cb)()) {
     if (_intPin < 0 || !cb) return;
-    attachInterrupt(digitalPinToInterrupt(_intPin), cb, RISING);
+    // INT pin is open-drain, active-low — trigger on the falling edge
+    attachInterrupt(digitalPinToInterrupt(_intPin), cb, FALLING);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -35,7 +35,7 @@ enum State { IDLE, STARTUP, SCAN, RUNNING, FAULT, RECOVERY };
 static State state = IDLE;
 
 volatile bool intFired = false;
-void IRAM_ATTR onInt() { intFired = true; }
+void AP33772S_ISR_ATTR onInt() { intFired = true; }
 
 // ─────────────────────────────────────────────────────────────────────────────
 void printHelp() {
