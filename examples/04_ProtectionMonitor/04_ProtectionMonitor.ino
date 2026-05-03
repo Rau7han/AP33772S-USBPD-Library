@@ -19,7 +19,7 @@ AP33772S pd(Wire, PIN_INT);
 
 volatile bool intFired = false;
 
-void IRAM_ATTR onInterrupt() {
+void AP33772S_ISR_ATTR onInterrupt() {
     intFired = true;
 }
 
@@ -106,7 +106,7 @@ void loop() {
                 Serial.printf("  V=%u mV  I=%u mA  T=%d°C\n",
                               pd.getVoltage_mV(), pd.getCurrent_mA(),
                               pd.getTemperature_C());
-                Serial.println(F("Attempting recovery...");
+                Serial.println(F("Attempting recovery..."));
 
                 delay(2000);
                 pd.issueHardReset();
