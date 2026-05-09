@@ -1,0 +1,25 @@
+# main/CMakeLists.txt — Spark Analyzer main component
+idf_component_register(
+    SRCS
+        "main.c"
+        "ucpd_controller.c"
+        "wifi_manager.c"
+        "ble_manager.c"
+        "api_server.c"
+        "power_supply.c"
+        "current_sensor.c"
+        "config_manager.c"
+    INCLUDE_DIRS
+        "."
+    REQUIRES
+        driver
+        esp_wifi
+        esp_event
+        esp_netif
+        mdns
+        bt
+        nimble
+        esp_http_server
+        nvs_flash
+        json
+)
