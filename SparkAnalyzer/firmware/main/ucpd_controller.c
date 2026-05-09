@@ -76,7 +76,7 @@ static uint8_t    s_pdo_count = 0;
 static bool       s_ka_active = false;
 static uint32_t   s_ka_timer  = 0;
 static uint8_t    s_ka_pdo    = 0;
-static uint8_t    s_ka_vsел   = 0;
+static uint8_t    s_ka_vsel   = 0;
 static uint8_t    s_ka_isel   = 0;
 static bool       s_ka_is_avs = false;
 
@@ -131,7 +131,7 @@ static void _send_rdo(uint8_t pdo_index, uint8_t current_sel, uint8_t voltage_se
 
     /* Store keep-alive params */
     s_ka_pdo    = pdo_index;
-    s_ka_vsел   = voltage_sel;
+    s_ka_vsel   = voltage_sel;
     s_ka_isel   = current_sel;
     s_ka_active = true;
     s_ka_timer  = xTaskGetTickCount();
@@ -248,7 +248,7 @@ void ucpd_keepalive(void) {
     uint32_t now = xTaskGetTickCount();
     if ((now - s_ka_timer) >= pdMS_TO_TICKS(500)) {
         s_ka_timer = now;
-        _send_rdo(s_ka_pdo, s_ka_isel, s_ka_vsел);
+        _send_rdo(s_ka_pdo, s_ka_isel, s_ka_vsel);
     }
 }
 
@@ -344,9 +344,9 @@ uint8_t ucpd_set_pps(uint16_t voltage_mv, uint16_t max_current_ma) {
         if (!p->valid || p->type != 1) continue;
         if (voltage_mv < p->min_mv || voltage_mv > p->max_mv) continue;
         if (p->max_ma < max_current_ma) max_current_ma = p->max_ma;
-        uint8_t vsел = (uint8_t)(voltage_mv / UCPD_PPS_VSTEP_MV);
+        uint8_t vsel = (uint8_t)(voltage_mv / UCPD_PPS_VSTEP_MV);
         uint8_t isel = _current_encode(max_current_ma);
-        _send_rdo(p->index, isel, vsел);
+        _send_rdo(p->index, isel, vsel);
         s_ka_is_avs = false;
         ESP_LOGI(TAG, "PPS PDO %u selected (%umV / %umA)", p->index, voltage_mv, max_current_ma);
         return p->index;
@@ -360,9 +360,9 @@ uint8_t ucpd_set_avs(uint16_t voltage_mv, uint16_t max_current_ma) {
         if (!p->valid || p->type != 2) continue;
         if (voltage_mv < p->min_mv || voltage_mv > p->max_mv) continue;
         if (p->max_ma < max_current_ma) max_current_ma = p->max_ma;
-        uint8_t vsел = (uint8_t)(voltage_mv / UCPD_AVS_VSTEP_MV);
+        uint8_t vsel = (uint8_t)(voltage_mv / UCPD_AVS_VSTEP_MV);
         uint8_t isel = _current_encode(max_current_ma);
-        _send_rdo(p->index, isel, vsел);
+        _send_rdo(p->index, isel, vsel);
         s_ka_is_avs = true;
         ESP_LOGI(TAG, "AVS PDO %u selected (%umV / %umA)", p->index, voltage_mv, max_current_ma);
         return p->index;
