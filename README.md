@@ -150,6 +150,19 @@ Interrupt-driven fault detection with automatic recovery and customizable protec
 ### [05_FullSystem](examples/05_FullSystem/)
 Complete state machine with Serial command interface (scan, set voltage, dump registers, etc.).
 
+### [06_SparkAnalyzer](examples/06_SparkAnalyzer/) ⭐ ESP32 only
+**Wi-Fi and BLE enabled USB-C PD Analyzer & Programmable Power Supply** firmware for the Spark Analyzer device.
+
+Features:
+- **Wi-Fi** (STA mode with AP fallback for provisioning) + mDNS (`http://spark.local/`)
+- **Live web dashboard** served directly from ESP32 — real-time voltage/current/power charts and controls
+- **REST API** for remote monitoring and control (see [API_REFERENCE.md](SparkAnalyzer/documentation/API_REFERENCE.md))
+- **BLE GATT server** for mobile app connectivity (500 ms notify interval)
+- **PPS/AVS voltage control** from the dashboard: 3.3 V – 21 V in 100 mV steps
+- **Interrupt-driven fault detection** with automatic recovery
+
+See the [Spark Analyzer documentation](SparkAnalyzer/documentation/) for full setup instructions.
+
 ---
 
 ## API Quick Reference

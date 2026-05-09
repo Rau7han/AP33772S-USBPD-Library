@@ -1,0 +1,18 @@
+Reference,Quantity,Value,Description,Package,Manufacturer,MPN,Notes
+U1,1,AP33772S,USB PD 3.1 Sink Controller,SOT23-6,Diodes Inc.,AP33772S-G1,I2C address 0x52
+U2,1,ESP32-WROOM-32E,Wi-Fi + BLE Module,SMD,Espressif,ESP32-WROOM-32E,4MB flash recommended
+U3,1,INA219xDCNT,Current/Power Monitor,SOT23-8,Texas Instruments,INA219BIDCNT,Optional; address 0x40
+U4,1,AMS1117-3.3,LDO Voltage Regulator,SOT-223,AMS,AMS1117-3.3,3.3V rail for ESP32 + AP33772S
+C1,4,100nF,Bypass Capacitor,0402,Generic,Any,VCC bypass for ICs
+C2,2,10uF,Bulk Capacitor,0805,Generic,Any,Power supply stability
+R1,2,4.7kΩ,I2C Pull-up,0402,Generic,Any,SDA/SCL pull-ups to 3.3V
+R2,1,10mΩ,Current Sense Shunt,2512,Vishay,WSBS2512R0100FEA,For INA219 (±1% tolerance)
+R3,1,10kΩ,INT Pull-up,0402,Generic,Any,AP33772S INT pin pull-up
+J1,1,USB-C Receptacle,Power Input (PD),USB-C,Amphenol,12401610E4#2A,24-pin full-featured
+J2,1,USB-C Receptacle,Power Output,USB-C,Amphenol,12401610E4#2A,Load connection
+J3,1,2x5 Pin Header,Debug / JTAG,2.54mm,Generic,Any,Optional
+SW1,1,SPST Pushbutton,Reset Button,SMD,Generic,Any,ESP32 EN reset
+LED1,1,Green LED,Status LED,0402,Generic,Any,Wi-Fi/BLE status
+LED2,1,Red LED,Fault LED,0402,Generic,Any,Fault indicator
+R4,1,220Ω,LED Current Limit,0402,Generic,Any,For LED1
+R5,1,220Ω,LED Current Limit,0402,Generic,Any,For LED2
